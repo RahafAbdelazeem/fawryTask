@@ -48,13 +48,9 @@ public class AuthService
 
     public AuthenticationResponse register(RegisterRequest request)
     {
-        User user = User.builder()
-                .firstName(request.getFirstname())
-                .lastName(request.getLastname())
-                .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .role(request.getRole())
-                .build();
+        User user = new User(request.getFirstname() , request.getLastname() , request.getEmail() ,
+                passwordEncoder.encode(request.getPassword()) ,
+                request.getRole());
 
         User savedUser = userRepository.save(user);
         Map<String , Object> extraClaims = new HashMap<>();
@@ -64,13 +60,7 @@ public class AuthService
     }
 
     private void saveUserToken(User user, String jwtToken) {
-        Token token = Token.builder()
-                .user(user)
-                .token(jwtToken)
-                .tokenType(TokenType.BEARER)
-                .expired(false)
-                .revoked(false)
-                .build();
+        Token token = new Token(jwtToken , TokenType.BEARER , false , false , user);
         tokenRepository.save(token);
     }
 }
