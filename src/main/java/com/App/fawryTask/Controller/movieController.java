@@ -38,8 +38,8 @@ public class movieController {
      public void addNewMovie(@RequestParam Movies movies){
      movieService.addMovie(movies);
       }
-      @DeleteMapping("{/id}")
-    public void deleteMovieById(@PathVariable int Id){
-      movieService.deleteMoviweById(Id);
+      @DeleteMapping("/{id}")
+    public void deleteMovieById(@PathVariable int id){
+      movieService.deleteMoviweById(id);
       }
 }
